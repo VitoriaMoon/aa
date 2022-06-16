@@ -5,7 +5,6 @@ show tables;
 
 CREATE TABLE TB_USUARIO(
 ID_USUARIO		int	 primary key auto_increment,
-NM_USUARIO		varchar(250),
 DS_EMAIL		varchar(100),
 DS_SENHA		varchar(100),
 NM_PERFIL		varchar(30),

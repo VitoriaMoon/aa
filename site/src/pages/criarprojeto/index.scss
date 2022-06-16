@@ -90,17 +90,7 @@
     align-items: center;
 }
 
-.btpj{
-    background-color: #6586ff;
-    border: none;
-    padding: 1em;
-    width: 10em;
-    border-radius: 30px;
-    font-family: 'attack11';
-    color: #fff;
-    margin-bottom: 1em;
-    margin-inline-end: 3em;
-}
+
 
 .subcont-2{
     display: flex;
@@ -240,6 +230,7 @@ button{
         font-family: 'attack11';
         color: #fff;
         margin-top: 1em;
+        cursor: pointer;
     }
     
     .subcont-2{

@@ -17,12 +17,25 @@ export async function buscarProjetoPorNome(nome) {
 }
 
 export async function CriarProjeto (nome, descricao, categoria, materiais, usuario){
-    const r = await api.post('http://localhost:5000/projeto',{
+    const r = await api.post('/criarprojeto',{
+        usuario: usuario,
         nome: nome,
         descricao: descricao,
         categoria: categoria,
-        materiais: materiais
+        materiais: materiais,
     })
 
     return r.data;
 } 
+
+export async function AdicionarImagem (id, img){
+    const formData= new FormData();
+    FormData.append('img', img);
+    const r = await api.put(`/criarprojeto/${id}/img`, 
+    formData, {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        },
+    });
+    return r.status;
+}

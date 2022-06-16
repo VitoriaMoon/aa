@@ -1,10 +1,10 @@
-import {login, consultarperfil, alterarperfil, buscarPerfil, buscarPerfilPorId, deletarperfil, fazerCadastro } from '../Repository/usuarioRepository.js'
+import {login, consultarperfil, buscarPerfil, fazerCadastro } from '../Repository/usuarioRepository.js'
 
 import { Router } from 'express';
 const server = Router();
 
 
-server.post('/usuario/login', async (req, resp) => {
+server.post('/login', async (req, resp) => {
     try {
         const { email, senha } = req.body;
         
@@ -22,7 +22,8 @@ server.post('/usuario/login', async (req, resp) => {
     }
 })
 
-server.post('/usuario/cadastro', async (req, resp) => {
+
+server.post('/cadastro', async (req, resp) => {
     try {
         const cadastro = req.body;
 
@@ -36,12 +37,13 @@ server.post('/usuario/cadastro', async (req, resp) => {
 
         resp.send(resposta)
     } catch (err) {
-        resp.status(401).send({
+        resp.send({
             erro: err.message
         });
     }
 
 })
+
 
 server.get('/perfil' , async (req, resp) => {
     try{
@@ -56,6 +58,7 @@ server.get('/perfil' , async (req, resp) => {
     }
 }) 
 
+
 server.get('/perfil/busca', async (req, resp) => {
     try {
         const {nome} = req.query;
@@ -69,19 +72,7 @@ server.get('/perfil/busca', async (req, resp) => {
     }
 })
 
-server.get('/perfil/:id', async (req, resp) => {
-    try {
-        const id = Number(req.params.id);
-
-        const resposta = await buscarPerfilPorId(id);
-        resp.send(resposta)
-    } catch (err) {
-        resp.status(404).send({
-            erro: err.message
-        })
-    }
-})
-
+////////////////////////////////////////
 
 server.put( '/alterarperfil/:id', async (req,resp) => {
     try {
@@ -90,7 +81,7 @@ server.put( '/alterarperfil/:id', async (req,resp) => {
         const resposta = await alterarperfil(id,perfil)
 
         if(resposta != 1){
-            throw new Error('O projeto não pode ser alterado!');
+            throw new Error('O usuario não pode ser alterado!');
         }
         else {
             resp.status(204).send()
@@ -118,6 +109,8 @@ server.put( '/alterarperfil/:id', async (req,resp) => {
          resp.status(404).send
      }
  }) 
+
+ server.get('/perfil/')
 
 
 

@@ -1,10 +1,11 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/alt-text */
+
 import './index.scss';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-import { CriarProjeto } from '../../api/projetoAPI';
+import {CriarProjeto, } from '../../api/projetoAPI'
+//import Storage from 'local-storage'
 
 export default function Projeto(){
 
@@ -12,27 +13,26 @@ export default function Projeto(){
     const [descricao, setDescricao] = useState('');
     const [categoria, setCategoria] = useState('');
     const [materiais, setMateriais] = useState('');
-    
-    async function ProjClick(){
+    const [img, setImg] = useState('');
+
+    async function salvarClick() {
         try {
-            
-            const r = await CriarProjeto(nome, descricao, categoria, materiais);
+            //const usuario = Storage('usuario-logado').id
+            const r = await CriarProjeto( nome, descricao, categoria, materiais )
 
-            alert('O SEU PROJETO FOI CRIADO!')
-
+            alert('o seu projeto foi salvo!')
         } catch (err) {
             alert(err.message)
         }
-    }
-
+        }
     return(
 
         <div className='ma4'>
             <div class="btao1">
             <Link to='../perfil'>
-            <a>
+            <p>
                 <p class="bot1-txt">Voltar</p>
-            </a>
+            </p>
             </Link>
         </div>
     <nav class="cont-1">
@@ -46,22 +46,22 @@ export default function Projeto(){
                 <div class="descricao">
                     <p>
                         <h4 className='titulo1'>Nome</h4>
-                        <input type="text" placeholder="nome da sua obra"  value={nome} onChange={e => setNome(e.target.value)} className='inpdec2'/>
+                        <input type="text" placeholder="nome da sua obra" value = {nome} onChange={e => setNome(e.target.value)} className='inpdec2'/>
                     </p>
         
                     <p>
                         <h4 className='titulo1'>Descrição</h4>
-                        <input type="text" placeholder="informe uma descrição"  value={descricao} onChange={e => setDescricao(e.target.value)} className= 'inpdec2'/>
+                        <input type="text" placeholder="informe uma descrição" value = {descricao} onChange={e => setDescricao(e.target.value)}   className= 'inpdec2'/>
                     </p>
         
                     <p>
                         <h4 className='titulo1'>Categorize seu projeto:</h4>
-                        <input type="text" placeholder="fotografia, arte digital,artesanato, escultura escultura etc"  value={categoria} onChange={e => setCategoria(e.target.value)} className= 'inpdec2'/>
+                        <input type="text" placeholder="fotografia, arte digital,artesanato, escultura escultura etc" value = {categoria} onChange={e => setCategoria(e.target.value)}   className= 'inpdec2'/>
                     </p>
         
                     <p>
                         <h4 className='titulo1'>Materiais utilizados:</h4>
-                        <input type="text" placeholder="ex: paint, lightroom, figma, ilustrator" value={materiais} onChange={e => setMateriais(e.target.value)} className='inpdec2'/>
+                        <input type="text" placeholder="ex: paint, lightroom, figma, ilustrator" value = {materiais} onChange={e => setMateriais(e.target.value)}   className='inpdec2'/>
                     </p>
                 </div>
         
@@ -83,7 +83,10 @@ export default function Projeto(){
                         <p className='textocont' >Adicione uma imagem</p>
                     </button>
             </aside>
-                <button onClick={ProjClick()} className='btpj'>Enviar projeto</button>
+            
+            <button onClick={salvarClick()}>Enviar projeto</button>
+            
+            
             </div>
 
     </main>

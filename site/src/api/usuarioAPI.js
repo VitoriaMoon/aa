@@ -4,7 +4,7 @@ const api = axios.create({
 })
 
 export async function Logar(email, senha){
-    const r = await api.post('http://localhost:5000/usuario/login',{
+    const r = await api.post('http://localhost:5000/login',{
         email: email, 
         senha: senha
       })
@@ -18,7 +18,7 @@ export async function infoPerfil() {
 }
 
 export async function CadastrarUsuario (nome, email, senha){
-    const r = await api.post('http://localhost:5000/usuario/cadastro',{
+    const r = await api.post('http://localhost:5000/cadastro',{
         nome: nome,
         email: email,
         senha: senha

@@ -1,9 +1,13 @@
-import { InserirProjeto, alterarProjeto, consultarProjetos,buscarporNome,consultarProjetosPorId,buscarPorCategoria, ApagarProjeto } from '../Repository/projetoRepository.js';
+import { alterarProjeto, AdicionarImagem, consultarProjetos,buscarporNome,consultarProjetosPorId,buscarPorCategoria, ApagarProjeto } from '../Repository/projetoRepository.js';
 
 import {Router} from 'express'
 const server = Router();
 
-server.post('/projeto', async (req, resp) =>{
+import multer from 'multer'
+const upload = multer({ dest: 'storage/projetosimg' })
+
+
+server.post('/criarprojeto', async (req, resp) =>{
 
     try {
         const projetoQueVaiInserir = req.body;
@@ -18,6 +22,23 @@ server.post('/projeto', async (req, resp) =>{
         })
     }
 
+})
+
+server.put('/projeto/:id/img', upload.single('img'), async (req, resp) => {
+    try {
+        const {id} = req.params;
+        const img = req.file.path;
+
+        const r = await AdicionarImagem(img , id);
+        if (resposta != 1)
+        throw new Error (' Você não pode adicionar esta imagem! ');
+
+        resp.status(201).send();
+    } catch (err) {
+        resp.status(401).send({
+            erro: err.message
+        })
+    }
 })
 
 
@@ -77,13 +98,13 @@ server.get('/projeto/:id', async (req, resp) => {
     }    
 })
 
-server.put('/alterar/:id', async (req,resp) => {
+server.put('/alterar', async (req,resp) => {
     
     try {
         const {id}  = req.params;
         const projeto = req.body;
 
-        const resposta = await alterarProjeto(id, projeto);
+        const resposta = await alterarProjeto(projeto);
         if(resposta != 1){
             throw new Error('O projeto não pode ser alterado!');
         }

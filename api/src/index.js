@@ -1,5 +1,4 @@
 import 'dotenv/config'
-import { con } from './Repository/connection.js';
 
 import usuarioController from './Controller/usuarioController.js';
 import projetoController from './Controller/projetoController.js'
